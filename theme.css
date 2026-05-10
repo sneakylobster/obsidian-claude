@@ -1,0 +1,909 @@
+/* =============================================================================
+   CLAUDE — Obsidian Theme  v2
+   Inspired by Anthropic's Claude AI visual identity
+
+   Official Claude Brand Colors:
+     Terracotta  #D97757  — primary accent (refined from #DE7356)
+     Crail       #B85C38  — deeper terracotta / hover states
+     Cloudy      #B1ADA1  — muted warm grey
+     Pampas      #F2F0EA  — warm cream background (slightly deeper than raw)
+
+   Install: Place in <vault>/.obsidian/themes/Claude/theme.css
+            OR as a snippet in <vault>/.obsidian/snippets/claude-theme.css
+
+   Fonts (set via Settings → Appearance → Font, or via @import at top):
+     Interface : Inter
+     Text      : Lora
+     Monospace : JetBrains Mono
+   ============================================================================= */
+
+/* ─── 1. BRAND PALETTE ────────────────────────────────────────────────────── */
+:root {
+    --claude-terracotta: #d97757;
+    --claude-terracotta-dark: #b85c38;
+    --claude-terracotta-deep: #9a4a28;
+    --claude-terracotta-soft: #e8937c;
+    --claude-terracotta-pale: #f0c4b4;
+    --claude-terracotta-tint: rgba(217, 119, 87, 0.1);
+
+    /* Backgrounds — warmer/slightly deeper than raw Pampas to match Claude UI */
+    --claude-pampas: #f2f0ea;
+    --claude-pampas-dark: #e8e5dc;
+    --claude-pampas-deep: #d9d6cc;
+    --claude-pampas-sidebar: #edebe4;
+
+    --claude-cloudy: #b1ada1;
+    --claude-cloudy-light: #cec9c1;
+    --claude-cloudy-dark: #898480;
+
+    --claude-ink: #2c2825;
+    --claude-ink-soft: #47433e;
+    --claude-ink-muted: #6b6560;
+
+    /* Dark surfaces */
+    --claude-dark-base: #1a1816;
+    --claude-dark-surface: #222019;
+    --claude-dark-raised: #2c2922;
+    --claude-dark-border: #3a3630;
+
+    /* Syntax token palette — varied so code isn't monochromatic */
+    --syn-keyword: #b85c38; /* terracotta dark — keywords, tags */
+    --syn-string: #4e8c5a; /* forest green — strings */
+    --syn-comment: #9a9389; /* warm grey — comments */
+    --syn-function: #7a6aaa; /* muted purple — function names */
+    --syn-number: #c27c35; /* amber — numbers, booleans */
+    --syn-property: #47433e; /* ink soft — object keys */
+    --syn-operator: #898480; /* cloudy dark — operators & punctuation */
+    --syn-value: #d97757; /* terracotta — CSS values, important */
+
+    /* Dark mode syntax variants */
+    --syn-dk-keyword: #e8937c;
+    --syn-dk-string: #7ab882;
+    --syn-dk-comment: #6a6460;
+    --syn-dk-function: #a899d4;
+    --syn-dk-number: #d4a05a;
+    --syn-dk-property: #c8c0b4;
+    --syn-dk-operator: #8a8480;
+    --syn-dk-value: #d97757;
+}
+
+/* ─── 2. LIGHT MODE ───────────────────────────────────────────────────────── */
+.theme-light {
+    /* ── Backgrounds ── */
+    --background-primary: var(--claude-pampas);
+    --background-primary-alt: var(--claude-pampas-sidebar);
+    --background-secondary: var(--claude-pampas-sidebar);
+    --background-secondary-alt: var(--claude-pampas-dark);
+    --background-modifier-hover: rgba(217, 119, 87, 0.07);
+    --background-modifier-active-hover: rgba(217, 119, 87, 0.13);
+    --background-modifier-border: var(--claude-pampas-deep);
+    --background-modifier-form-field: #ffffff;
+    --background-modifier-form-field-highlighted: var(--claude-pampas);
+    --background-modifier-box-shadow: rgba(44, 40, 37, 0.12);
+    --background-modifier-success: rgba(78, 140, 90, 0.13);
+    --background-modifier-error: rgba(184, 92, 56, 0.11);
+    --background-modifier-error-rgb: 184, 92, 56;
+
+    /* ── Text ── */
+    --text-normal: var(--claude-ink);
+    --text-muted: var(--claude-ink-muted);
+    --text-faint: var(--claude-cloudy);
+    --text-on-accent: #ffffff;
+    --text-error: var(--claude-terracotta-dark);
+    --text-success: #306a40;
+    --text-selection: rgba(217, 119, 87, 0.2);
+    --text-highlight-bg: rgba(217, 119, 87, 0.17);
+
+    /* ── Accent ── */
+    --accent-h: 18;
+    --accent-s: 65%;
+    --accent-l: 60%;
+    --interactive-accent: var(--claude-terracotta);
+    --interactive-accent-hover: var(--claude-terracotta-dark);
+    --interactive-accent-rgb: 217, 119, 87;
+
+    /* ── Links ── */
+    --link-color: var(--claude-terracotta-dark);
+    --link-color-hover: var(--claude-terracotta-deep);
+    --link-external-color: var(--claude-terracotta-dark);
+    --link-external-color-hover: var(--claude-terracotta-deep);
+    --link-unresolved-color: var(--claude-cloudy-dark);
+    --link-unresolved-opacity: 0.65;
+    --link-unresolved-decoration-style: dashed;
+    --link-unresolved-decoration-color: var(--claude-cloudy);
+
+    /* ── Borders & Dividers ── */
+    --divider-color: var(--claude-pampas-deep);
+    --divider-color-hover: var(--claude-cloudy-light);
+
+    /* ── Scrollbars ── */
+    --scrollbar-bg: transparent;
+    --scrollbar-thumb-bg: rgba(177, 173, 161, 0.45);
+    --scrollbar-active-thumb-bg: rgba(137, 132, 128, 0.65);
+
+    /* ── Code syntax tokens ── */
+    --code-background: rgba(217, 119, 87, 0.07);
+    --code-normal: var(--claude-ink-soft);
+    --code-comment: var(--syn-comment);
+    --code-function: var(--syn-function);
+    --code-important: var(--syn-value);
+    --code-keyword: var(--syn-keyword);
+    --code-operator: var(--syn-operator);
+    --code-property: var(--syn-property);
+    --code-punctuation: var(--syn-operator);
+    --code-string: var(--syn-string);
+    --code-tag: var(--syn-keyword);
+    --code-value: var(--syn-number);
+
+    /* ── Tags ── */
+    --tag-color: var(--claude-terracotta-dark);
+    --tag-background: rgba(217, 119, 87, 0.09);
+    --tag-background-hover: rgba(217, 119, 87, 0.18);
+    --tag-border-color: rgba(217, 119, 87, 0.28);
+    --tag-border-color-hover: var(--claude-terracotta);
+    --tag-border-width: 1px;
+    --tag-padding-x: 0.55em;
+    --tag-padding-y: 0.18em;
+    --tag-radius: 999px;
+    --tag-weight: 500;
+
+    /* ── Callouts (body handled explicitly in section 11) ── */
+    --callout-border-width: 0;
+    --callout-border-opacity: 0;
+    --callout-padding: 10px 14px;
+    --callout-radius: var(--radius-m);
+
+    /* ── Tables ── */
+    --table-border-color: var(--claude-pampas-deep);
+    --table-header-background: var(--claude-pampas-dark);
+    --table-header-background-hover: rgba(217, 119, 87, 0.09);
+    --table-header-color: var(--claude-ink-soft);
+    --table-row-background-hover: rgba(217, 119, 87, 0.05);
+    --table-row-alt-background: rgba(232, 229, 220, 0.5);
+    --table-selection: rgba(217, 119, 87, 0.13);
+
+    /* ── Checkbox ── */
+    --checkbox-color: var(--claude-terracotta);
+    --checkbox-color-hover: var(--claude-terracotta-dark);
+    --checkbox-border-color: var(--claude-cloudy);
+    --checkbox-border-color-hover: var(--claude-terracotta);
+    --checkbox-marker-color: #ffffff;
+    --checkbox-radius: var(--radius-s);
+
+    /* ── Navigation ── */
+    --nav-item-color: var(--claude-ink-muted);
+    --nav-item-color-hover: var(--claude-ink);
+    --nav-item-color-active: var(--claude-terracotta-dark);
+    --nav-item-color-selected: var(--claude-terracotta-dark);
+    --nav-item-background-hover: rgba(217, 119, 87, 0.08);
+    --nav-item-background-active: rgba(217, 119, 87, 0.12);
+    --nav-item-background-selected: rgba(217, 119, 87, 0.14);
+    --nav-heading-color: var(--claude-ink-soft);
+    --nav-indentation-guide-color: var(--claude-pampas-deep);
+    --nav-collapse-icon-color: var(--claude-cloudy);
+
+    /* ── Headings ── */
+    --h1-color: var(--claude-terracotta-dark);
+    --h2-color: var(--claude-ink);
+    --h3-color: var(--claude-ink-soft);
+    --h4-color: var(--claude-ink-muted);
+    --h5-color: var(--claude-cloudy-dark);
+    --h6-color: var(--claude-cloudy);
+    --h1-weight: 700;
+    --h2-weight: 650;
+    --h3-weight: 600;
+    --h4-weight: 500;
+    --h5-weight: 500;
+    --h6-weight: 400;
+
+    /* ── Properties ── */
+    --metadata-background: var(--claude-pampas-sidebar);
+    --metadata-property-background: transparent;
+    --metadata-property-background-hover: rgba(217, 119, 87, 0.05);
+    --metadata-label-color: var(--claude-cloudy-dark);
+    --metadata-input-background: transparent;
+    --metadata-divider-color: var(--claude-pampas-deep);
+
+    /* ── Graph ── */
+    --graph-node: var(--claude-cloudy);
+    --graph-node-tag: var(--claude-terracotta-soft);
+    --graph-node-attachment: var(--claude-cloudy-light);
+    --graph-node-unresolved: var(--claude-pampas-deep);
+    --graph-node-focused: var(--claude-terracotta);
+    --graph-node-active: var(--claude-terracotta-dark);
+    --graph-line: var(--claude-pampas-deep);
+    --graph-text: var(--claude-ink-muted);
+    --graph-arrow: var(--claude-cloudy-dark);
+}
+
+/* ─── 3. DARK MODE ────────────────────────────────────────────────────────── */
+.theme-dark {
+    /* ── Backgrounds ── */
+    --background-primary: var(--claude-dark-base);
+    --background-primary-alt: var(--claude-dark-surface);
+    --background-secondary: var(--claude-dark-surface);
+    --background-secondary-alt: var(--claude-dark-raised);
+    --background-modifier-hover: rgba(217, 119, 87, 0.08);
+    --background-modifier-active-hover: rgba(217, 119, 87, 0.14);
+    --background-modifier-border: var(--claude-dark-border);
+    --background-modifier-form-field: var(--claude-dark-raised);
+    --background-modifier-form-field-highlighted: #332e27;
+    --background-modifier-box-shadow: rgba(0, 0, 0, 0.45);
+    --background-modifier-success: rgba(78, 140, 90, 0.17);
+    --background-modifier-error: rgba(217, 119, 87, 0.17);
+    --background-modifier-error-rgb: 217, 119, 87;
+
+    /* ── Text ── */
+    --text-normal: #e5e0d8;
+    --text-muted: #9e9890;
+    --text-faint: #68625c;
+    --text-on-accent: #ffffff;
+    --text-error: var(--claude-terracotta-soft);
+    --text-success: #6abf82;
+    --text-selection: rgba(217, 119, 87, 0.24);
+    --text-highlight-bg: rgba(217, 119, 87, 0.19);
+
+    /* ── Accent ── */
+    --accent-h: 18;
+    --accent-s: 65%;
+    --accent-l: 60%;
+    --interactive-accent: var(--claude-terracotta);
+    --interactive-accent-hover: var(--claude-terracotta-soft);
+    --interactive-accent-rgb: 217, 119, 87;
+
+    /* ── Links ── */
+    --link-color: var(--claude-terracotta-soft);
+    --link-color-hover: var(--claude-terracotta);
+    --link-external-color: var(--claude-terracotta-soft);
+    --link-external-color-hover: var(--claude-terracotta);
+    --link-unresolved-color: #68625c;
+    --link-unresolved-opacity: 0.75;
+    --link-unresolved-decoration-style: dashed;
+    --link-unresolved-decoration-color: #68625c;
+
+    /* ── Borders & Dividers ── */
+    --divider-color: var(--claude-dark-border);
+    --divider-color-hover: #48433c;
+
+    /* ── Scrollbars ── */
+    --scrollbar-bg: transparent;
+    --scrollbar-thumb-bg: rgba(177, 173, 161, 0.18);
+    --scrollbar-active-thumb-bg: rgba(177, 173, 161, 0.32);
+
+    /* ── Code syntax tokens ── */
+    --code-background: rgba(217, 119, 87, 0.09);
+    --code-normal: #c8c2ba;
+    --code-comment: var(--syn-dk-comment);
+    --code-function: var(--syn-dk-function);
+    --code-important: var(--syn-dk-value);
+    --code-keyword: var(--syn-dk-keyword);
+    --code-operator: var(--syn-dk-operator);
+    --code-property: var(--syn-dk-property);
+    --code-punctuation: var(--syn-dk-operator);
+    --code-string: var(--syn-dk-string);
+    --code-tag: var(--syn-dk-keyword);
+    --code-value: var(--syn-dk-number);
+
+    /* ── Tags ── */
+    --tag-color: var(--claude-terracotta-soft);
+    --tag-background: rgba(217, 119, 87, 0.11);
+    --tag-background-hover: rgba(217, 119, 87, 0.22);
+    --tag-border-color: rgba(217, 119, 87, 0.24);
+    --tag-border-color-hover: var(--claude-terracotta);
+    --tag-border-width: 1px;
+    --tag-padding-x: 0.55em;
+    --tag-padding-y: 0.18em;
+    --tag-radius: 999px;
+    --tag-weight: 500;
+
+    /* ── Callouts ── */
+    --callout-border-width: 0;
+    --callout-border-opacity: 0;
+    --callout-padding: 10px 14px;
+    --callout-radius: var(--radius-m);
+
+    /* ── Tables ── */
+    --table-border-color: var(--claude-dark-border);
+    --table-header-background: var(--claude-dark-raised);
+    --table-header-background-hover: rgba(217, 119, 87, 0.09);
+    --table-header-color: #c8c2ba;
+    --table-row-background-hover: rgba(217, 119, 87, 0.06);
+    --table-row-alt-background: rgba(44, 41, 34, 0.55);
+    --table-selection: rgba(217, 119, 87, 0.17);
+
+    /* ── Checkbox ── */
+    --checkbox-color: var(--claude-terracotta);
+    --checkbox-color-hover: var(--claude-terracotta-soft);
+    --checkbox-border-color: #68625c;
+    --checkbox-border-color-hover: var(--claude-terracotta);
+    --checkbox-marker-color: #ffffff;
+    --checkbox-radius: var(--radius-s);
+
+    /* ── Navigation ── */
+    --nav-item-color: #88827c;
+    --nav-item-color-hover: #e5e0d8;
+    --nav-item-color-active: var(--claude-terracotta-soft);
+    --nav-item-color-selected: var(--claude-terracotta-soft);
+    --nav-item-background-hover: rgba(217, 119, 87, 0.08);
+    --nav-item-background-active: rgba(217, 119, 87, 0.13);
+    --nav-item-background-selected: rgba(217, 119, 87, 0.15);
+    --nav-heading-color: #c8c2ba;
+    --nav-indentation-guide-color: var(--claude-dark-border);
+    --nav-collapse-icon-color: #68625c;
+
+    /* ── Headings ── */
+    --h1-color: var(--claude-terracotta-soft);
+    --h2-color: #e5e0d8;
+    --h3-color: #c8c2ba;
+    --h4-color: #9e9890;
+    --h5-color: #88827c;
+    --h6-color: #68625c;
+    --h1-weight: 700;
+    --h2-weight: 650;
+    --h3-weight: 600;
+    --h4-weight: 500;
+    --h5-weight: 500;
+    --h6-weight: 400;
+
+    /* ── Properties ── */
+    --metadata-background: var(--claude-dark-surface);
+    --metadata-property-background: transparent;
+    --metadata-property-background-hover: rgba(217, 119, 87, 0.05);
+    --metadata-label-color: #88827c;
+    --metadata-input-background: transparent;
+    --metadata-divider-color: var(--claude-dark-border);
+
+    /* ── Graph ── */
+    --graph-node: #68625c;
+    --graph-node-tag: var(--claude-terracotta);
+    --graph-node-attachment: #48433c;
+    --graph-node-unresolved: #3a3630;
+    --graph-node-focused: var(--claude-terracotta-soft);
+    --graph-node-active: var(--claude-terracotta);
+    --graph-line: #3a3630;
+    --graph-text: #88827c;
+    --graph-arrow: #68625c;
+}
+
+/* ─── 4. TYPOGRAPHY ───────────────────────────────────────────────────────── */
+:root {
+    --font-interface-theme:
+        "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-text-theme: "Lora", ui-serif, Georgia, "Times New Roman", serif;
+    --font-monospace-theme:
+        "JetBrains Mono", "Cascadia Code", ui-monospace, monospace;
+
+    --radius-s: 4px;
+    --radius-m: 8px;
+    --radius-l: 12px;
+    --radius-xl: 18px;
+
+    --font-text-size: 16px;
+    --line-height-normal: 1.7;
+    --line-height-tight: 1.35;
+
+    --h1-size: 1.8em;
+    --h2-size: 1.45em;
+    --h3-size: 1.22em;
+    --h4-size: 1.08em;
+    --h5-size: 1em;
+    --h6-size: 0.9em;
+    --h1-line-height: 1.25;
+    --h2-line-height: 1.3;
+    --h3-line-height: 1.35;
+    --heading-spacing: 1.4em;
+}
+
+/* ─── 5. READING VIEW LAYOUT ──────────────────────────────────────────────── */
+.markdown-preview-view {
+    padding: 2em 3em;
+}
+
+.markdown-preview-view h1 {
+    margin-top: 1.6em;
+    margin-bottom: 0.4em;
+}
+.markdown-preview-view h2 {
+    margin-top: 1.4em;
+    margin-bottom: 0.35em;
+}
+.markdown-preview-view h3 {
+    margin-top: 1.2em;
+    margin-bottom: 0.3em;
+}
+
+/* ─── 6. BOLD & ITALIC ────────────────────────────────────────────────────── */
+/* Bold: warm ink, not terracotta — readable without being distracting */
+.markdown-rendered strong,
+.cm-strong {
+    color: var(--claude-ink);
+    font-weight: 700;
+}
+
+.theme-dark .markdown-rendered strong,
+.theme-dark .cm-strong {
+    color: #eae4dc;
+    font-weight: 700;
+}
+
+/* Italic: muted, no colour change */
+.markdown-rendered em,
+.cm-em {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ─── 7. BLOCKQUOTES ──────────────────────────────────────────────────────── */
+/* ── Reading view ── */
+.markdown-rendered blockquote {
+    border-left: 3px solid var(--claude-terracotta);
+    background-color: rgba(217, 119, 87, 0.06);
+    border-radius: 0 var(--radius-m) var(--radius-m) 0;
+    margin: 1.2em 0;
+    padding: 0.65em 1.2em;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* Collapse excess paragraph spacing inside a blockquote */
+.markdown-rendered blockquote p {
+    margin-top: 0.35em;
+    margin-bottom: 0.35em;
+}
+
+.markdown-rendered blockquote p:first-child {
+    margin-top: 0;
+}
+.markdown-rendered blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* Nested blockquote — slightly lighter treatment */
+.markdown-rendered blockquote blockquote {
+    border-left: 2px solid var(--claude-terracotta-pale);
+    background-color: rgba(217, 119, 87, 0.04);
+    margin: 0.5em 0;
+    padding: 0.4em 1em;
+}
+
+/* ── Live editor ── */
+.markdown-source-view.mod-cm6 .HyperMD-quote {
+    border-left: 3px solid var(--claude-terracotta);
+    background-color: rgba(217, 119, 87, 0.05);
+    padding-left: 1em;
+    color: var(--text-muted);
+}
+
+/* ── Dark mode tweak ── */
+.theme-dark .markdown-rendered blockquote {
+    background-color: rgba(217, 119, 87, 0.07);
+}
+
+/* ─── 8. HORIZONTAL RULE ──────────────────────────────────────────────────── */
+.markdown-rendered hr {
+    border: none;
+    border-top: 1px solid var(--divider-color);
+    margin: 2em 0;
+    opacity: 0.85;
+}
+
+/* ─── 9. INLINE CODE ──────────────────────────────────────────────────────── */
+.markdown-rendered code,
+.cm-inline-code {
+    background-color: var(--code-background);
+    color: var(--syn-keyword);
+    border-radius: var(--radius-s);
+    padding: 0.15em 0.42em;
+    font-size: 0.875em;
+}
+
+.theme-dark .markdown-rendered code,
+.theme-dark .cm-inline-code {
+    color: var(--syn-dk-keyword);
+}
+
+/* ─── 10. FENCED CODE BLOCKS ──────────────────────────────────────────────── */
+.markdown-rendered pre {
+    background-color: var(--claude-pampas-dark);
+    border: 1px solid var(--claude-pampas-deep);
+    border-radius: var(--radius-m);
+    padding: 1em 1.2em;
+    overflow-x: auto;
+}
+
+.markdown-rendered pre code {
+    background: transparent;
+    color: var(--code-normal);
+    padding: 0;
+    font-size: 0.875em;
+    line-height: 1.6;
+}
+
+.theme-dark .markdown-rendered pre {
+    background-color: var(--claude-dark-raised);
+    border-color: var(--claude-dark-border);
+}
+
+.markdown-rendered pre .code-block-flair {
+    color: var(--claude-cloudy-dark);
+    font-size: 0.75em;
+    opacity: 0.7;
+}
+
+/* ─── 11. CALLOUTS ────────────────────────────────────────────────────────── */
+.callout {
+    border-radius: var(--radius-m);
+    padding: var(--callout-padding);
+}
+
+/* Restore body text to normal — overrides Obsidian's default which inherits
+   callout colour and makes everything bold & tinted */
+.callout .callout-content,
+.callout .callout-content p,
+.callout .callout-content li,
+.callout .callout-content ul,
+.callout .callout-content ol {
+    color: var(--text-normal) !important;
+    font-weight: 400 !important;
+}
+
+.callout-title-inner {
+    font-weight: 600;
+}
+
+/* Note / Info */
+.callout[data-callout="note"],
+.callout[data-callout="info"] {
+    --callout-color: 217, 119, 87;
+    background-color: rgba(217, 119, 87, 0.08);
+    border-left: 3px solid var(--claude-terracotta);
+}
+
+/* Tip / Hint */
+.callout[data-callout="tip"],
+.callout[data-callout="hint"] {
+    --callout-color: 78, 140, 90;
+    background-color: rgba(78, 140, 90, 0.08);
+    border-left: 3px solid #4e8c5a;
+}
+
+/* Warning / Caution */
+.callout[data-callout="warning"],
+.callout[data-callout="caution"] {
+    --callout-color: 194, 124, 53;
+    background-color: rgba(194, 124, 53, 0.08);
+    border-left: 3px solid #c27c35;
+}
+
+/* Danger / Bug */
+.callout[data-callout="important"],
+.callout[data-callout="danger"],
+.callout[data-callout="bug"] {
+    --callout-color: 184, 92, 56;
+    background-color: rgba(184, 92, 56, 0.09);
+    border-left: 3px solid var(--claude-terracotta-dark);
+}
+
+/* Question / FAQ */
+.callout[data-callout="question"],
+.callout[data-callout="faq"],
+.callout[data-callout="help"] {
+    --callout-color: 122, 106, 170;
+    background-color: rgba(122, 106, 170, 0.08);
+    border-left: 3px solid #7a6aaa;
+}
+
+/* Success / Done */
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"] {
+    --callout-color: 78, 140, 90;
+    background-color: rgba(78, 140, 90, 0.08);
+    border-left: 3px solid #4e8c5a;
+}
+
+/* ─── 12. LINKS ───────────────────────────────────────────────────────────── */
+.markdown-rendered a.internal-link,
+.markdown-rendered a.external-link {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(184, 92, 56, 0.28);
+    transition:
+        color 0.12s ease,
+        border-color 0.12s ease;
+}
+
+.markdown-rendered a.internal-link:hover,
+.markdown-rendered a.external-link:hover {
+    color: var(--link-color-hover);
+    border-bottom-color: var(--link-color-hover);
+}
+
+.markdown-rendered a.internal-link.is-unresolved {
+    color: var(--link-unresolved-color);
+    border-bottom-style: dashed;
+    border-bottom-color: var(--link-unresolved-color);
+    opacity: var(--link-unresolved-opacity);
+}
+
+/* ─── 13. TABLES ──────────────────────────────────────────────────────────── */
+.markdown-rendered table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.93em;
+}
+
+.markdown-rendered th {
+    background-color: var(--table-header-background);
+    color: var(--table-header-color);
+    font-weight: 600;
+    padding: 0.55em 0.9em;
+    border-bottom: 2px solid var(--table-border-color);
+    text-align: left;
+}
+
+.markdown-rendered td {
+    padding: 0.48em 0.9em;
+    border-bottom: 1px solid var(--table-border-color);
+}
+
+.markdown-rendered tr:last-child td {
+    border-bottom: none;
+}
+.markdown-rendered tr:hover td {
+    background-color: var(--table-row-background-hover);
+}
+
+/* ─── 14. HIGHLIGHT (==text==) ────────────────────────────────────────────── */
+.markdown-rendered mark,
+.cm-highlight {
+    background-color: rgba(217, 119, 87, 0.2);
+    color: inherit;
+    border-radius: 2px;
+    padding: 0.05em 0.1em;
+}
+
+.theme-dark .markdown-rendered mark,
+.theme-dark .cm-highlight {
+    background-color: rgba(217, 119, 87, 0.25);
+}
+
+/* ─── 15. WORKSPACE CHROME ────────────────────────────────────────────────── */
+.workspace-tab-header.is-active {
+    color: var(--claude-terracotta-dark);
+}
+
+.theme-dark .workspace-tab-header.is-active {
+    color: var(--claude-terracotta-soft);
+}
+
+.side-dock-ribbon .side-dock-ribbon-action:hover {
+    color: var(--claude-terracotta);
+}
+
+.status-bar {
+    font-size: 11px;
+    color: var(--text-faint);
+}
+
+/* ─── 16. SCROLLBARS ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-bg);
+    border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-active-thumb-bg);
+}
+
+/* ─── 17. BUTTONS ─────────────────────────────────────────────────────────── */
+button.mod-cta,
+.modal-button-container button.mod-cta {
+    background-color: var(--claude-terracotta);
+    color: #ffffff;
+    border-radius: var(--radius-m);
+    transition: background-color 0.12s ease;
+}
+
+button.mod-cta:hover,
+.modal-button-container button.mod-cta:hover {
+    background-color: var(--claude-terracotta-dark);
+}
+
+/* ─── 18. QUICK SWITCHER / PROMPT ─────────────────────────────────────────── */
+.suggestion-item.is-selected {
+    background-color: var(--nav-item-background-active);
+    color: var(--nav-item-color-active);
+}
+
+/* ─── 19. GRAPH VIEW ──────────────────────────────────────────────────────── */
+.graph-view.color-fill {
+    color: var(--graph-node);
+}
+.graph-view.color-line {
+    color: var(--graph-line);
+}
+.graph-view.color-text {
+    color: var(--graph-text);
+}
+.graph-view.color-fill-focused {
+    color: var(--graph-node-focused);
+}
+.graph-view.color-fill-tag {
+    color: var(--graph-node-tag);
+}
+.graph-view.color-fill-unresolved {
+    color: var(--graph-node-unresolved);
+}
+
+/* ─── 20. CANVAS ──────────────────────────────────────────────────────────── */
+.canvas-node:not(.is-focused):not(.is-selected) .canvas-node-container {
+    border-color: var(--background-modifier-border);
+}
+
+.canvas-node.is-focused .canvas-node-container,
+.canvas-node.is-selected .canvas-node-container {
+    border-color: var(--claude-terracotta);
+    box-shadow: 0 0 0 2px rgba(217, 119, 87, 0.18);
+}
+
+/* ─── 21. FRONTMATTER / PROPERTIES ───────────────────────────────────────── */
+.metadata-container {
+    border-radius: var(--radius-m);
+    margin-bottom: 1.5em;
+}
+
+.metadata-property-key {
+    font-size: 0.8em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--metadata-label-color);
+}
+
+/* ─── 22. MOBILE TOUCH TARGETS ────────────────────────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+    .nav-file-title,
+    .nav-folder-title {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+}
+
+/* ─── 23. READING VIEW SYNTAX HIGHLIGHTING ───────────────────────────────── */
+/* Obsidian's reading view renders code via Prism/highlight.js with its own
+   span classes. These rules bring preview colours in line with the editor.  */
+
+/* Base text in code blocks */
+.markdown-rendered pre code {
+    color: var(--claude-ink-soft);
+}
+.theme-dark .markdown-rendered pre code {
+    color: #c8c2ba;
+}
+
+/* Keywords: const, return, function, from, import, async, await… */
+.markdown-rendered .token.keyword,
+.markdown-rendered .token.control-flow,
+.markdown-rendered .token.module {
+    color: var(--syn-keyword);
+    font-style: normal;
+}
+
+/* Strings */
+.markdown-rendered .token.string,
+.markdown-rendered .token.attr-value,
+.markdown-rendered .token.template-string,
+.markdown-rendered .token.char {
+    color: var(--syn-string);
+}
+
+/* Comments */
+.markdown-rendered .token.comment,
+.markdown-rendered .token.prolog,
+.markdown-rendered .token.doctype,
+.markdown-rendered .token.cdata {
+    color: var(--syn-comment);
+    font-style: italic;
+}
+
+/* Functions & class names */
+.markdown-rendered .token.function,
+.markdown-rendered .token.class-name,
+.markdown-rendered .token.method {
+    color: var(--syn-function);
+}
+
+/* Numbers, booleans, null */
+.markdown-rendered .token.number,
+.markdown-rendered .token.boolean,
+.markdown-rendered .token.constant,
+.markdown-rendered .token.builtin {
+    color: var(--syn-number);
+}
+
+/* Object keys / property names */
+.markdown-rendered .token.property,
+.markdown-rendered .token.parameter,
+.markdown-rendered .token.attr-name {
+    color: var(--syn-property);
+}
+
+/* Operators, punctuation */
+.markdown-rendered .token.operator,
+.markdown-rendered .token.punctuation,
+.markdown-rendered .token.delimiter {
+    color: var(--syn-operator);
+}
+
+/* Tags (HTML/JSX) */
+.markdown-rendered .token.tag,
+.markdown-rendered .token.selector {
+    color: var(--syn-keyword);
+}
+
+/* CSS values */
+.markdown-rendered .token.important,
+.markdown-rendered .token.atrule,
+.markdown-rendered .token.rule {
+    color: var(--syn-value);
+}
+
+/* Regex */
+.markdown-rendered .token.regex {
+    color: var(--syn-number);
+}
+
+/* Dark mode overrides */
+.theme-dark .markdown-rendered .token.keyword,
+.theme-dark .markdown-rendered .token.control-flow,
+.theme-dark .markdown-rendered .token.module {
+    color: var(--syn-dk-keyword);
+}
+.theme-dark .markdown-rendered .token.string,
+.theme-dark .markdown-rendered .token.attr-value {
+    color: var(--syn-dk-string);
+}
+.theme-dark .markdown-rendered .token.comment {
+    color: var(--syn-dk-comment);
+}
+.theme-dark .markdown-rendered .token.function,
+.theme-dark .markdown-rendered .token.class-name {
+    color: var(--syn-dk-function);
+}
+.theme-dark .markdown-rendered .token.number,
+.theme-dark .markdown-rendered .token.boolean {
+    color: var(--syn-dk-number);
+}
+.theme-dark .markdown-rendered .token.property {
+    color: var(--syn-dk-property);
+}
+.theme-dark .markdown-rendered .token.operator,
+.theme-dark .markdown-rendered .token.punctuation {
+    color: var(--syn-dk-operator);
+}
+.theme-dark .markdown-rendered .token.important,
+.theme-dark .markdown-rendered .token.atrule {
+    color: var(--syn-dk-value);
+}
+
+/* ─── 24. PRINT ───────────────────────────────────────────────────────────── */
+@media print {
+    :root {
+        --background-primary: #ffffff;
+        --text-normal: #000000;
+        --link-color: var(--claude-terracotta-dark);
+    }
+
+    .side-dock,
+    .workspace-ribbon,
+    .status-bar {
+        display: none;
+    }
+}
