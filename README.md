@@ -5,8 +5,12 @@ A warm, considered Obsidian theme inspired by Anthropic's Claude AI visual ident
 ## Preview
 
 ### Light Theme
+<img width="1596" height="1196" alt="Screenshot 2026-05-10 at 21 02 50" src="https://github.com/user-attachments/assets/31e935fa-1fe3-4626-be7f-52bf870f5c80" />
+
 
 ### Dark Theme
+<img width="1596" height="1196" alt="Screenshot 2026-05-10 at 21 03 52" src="https://github.com/user-attachments/assets/de3b25c4-bbdf-4837-99b7-f8b0a6fb6dd1" />
+
 
 ![Version](https://img.shields.io/badge/version-1.0-D97757?style=flat-square) ![Obsidian](https://img.shields.io/badge/Obsidian-1.0%2B-7A6AAA?style=flat-square) ![License](https://img.shields.io/badge/license-MIT-4E8C5A?style=flat-square)
 
